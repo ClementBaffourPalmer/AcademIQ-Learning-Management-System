@@ -1,0 +1,186 @@
+@model IEnumerable<AcademIQ_LMS.Models.QuizAttempt>
+
+@{
+    ViewData["Title"] = "Quiz Attempts";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>Quiz Attempts</h1>
+    <a asp-action="Index" class="btn btn-secondary">Back to Quizzes</a>
+</div>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">
+        <h4 class="alert-heading">No attempts found!</h4>
+        <p>No students have attempted this quiz yet.</p>
+    </div>
+}
+else
+{
+    <div class="card">
+        <div class="card-header">
+            <h5 class="mb-0">Student Attempts</h5>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Student</th>
+                            <th>Started</th>
+                            <th>Completed</th>
+                            <th>Score</th>
+                            <th>Percentage</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var attempt in Model)
+                        {
+                            <tr>
+                                <td>
+                                    <strong>@attempt.Student?.FirstName @attempt.Student?.LastName</strong>
+                                    <br>
+                                    <small class="text-muted">@attempt.Student?.Email</small>
+                                </td>
+                                <td>@attempt.StartedAt.ToString("MMM dd, yyyy HH:mm")</td>
+                                <td>
+                                    @if (attempt.CompletedAt.HasValue)
+                                    {
+                                        @attempt.CompletedAt.Value.ToString("MMM dd, yyyy HH:mm")
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted">Not completed</span>
+                                    }
+                                </td>
+                                <td>
+                                    @if (attempt.Score.HasValue && attempt.MaxScore.HasValue)
+                                    {
+                                        <span class="badge @(attempt.Percentage >= 80 ? "badge-success" : attempt.Percentage >= 60 ? "badge-warning" : "badge-danger")">
+                                            @attempt.Score/@attempt.MaxScore
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted">-</span>
+                                    }
+                                </td>
+                                <td>
+                                    @if (attempt.Percentage.HasValue)
+                                    {
+                                        <div class="progress" style="height: 20px;">
+                                            <div class="progress-bar @(attempt.Percentage >= 80 ? "bg-success" : attempt.Percentage >= 60 ? "bg-warning" : "bg-danger")" 
+                                                 style="width: @attempt.Percentage%">
+                                                @attempt.Percentage.Value.ToString("F1")%
+                                            </div>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted">-</span>
+                                    }
+                                </td>
+                                <td>
+                                    @if (attempt.IsCompleted)
+                                    {
+                                        <span class="badge badge-success">Completed</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge badge-warning">In Progress</span>
+                                    }
+                                </td>
+                                <td>
+                                    @if (attempt.IsCompleted)
+                                    {
+                                        <a asp-action="Results" asp-route-attemptId="@attempt.Id" class="btn btn-outline-primary btn-sm">
+                                            View Results
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted">Not available</span>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h6 class="mb-0">Statistics</h6>
+                </div>
+                <div class="card-body">
+                    @{
+                        var completedAttempts = Model.Where(a => a.IsCompleted).ToList();
+                        var totalAttempts = Model.Count();
+                        var completedCount = completedAttempts.Count;
+                        var averageScore = completedAttempts.Any() ? completedAttempts.Average(a => a.Percentage ?? 0) : 0;
+                        var passRate = completedAttempts.Any() ? completedAttempts.Count(a => (a.Percentage ?? 0) >= 60) * 100.0 / completedCount : 0;
+                    }
+                    <div class="row text-center">
+                        <div class="col-6">
+                            <h4 class="text-primary">@totalAttempts</h4>
+                            <small class="text-muted">Total Attempts</small>
+                        </div>
+                        <div class="col-6">
+                            <h4 class="text-success">@completedCount</h4>
+                            <small class="text-muted">Completed</small>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row text-center">
+                        <div class="col-6">
+                            <h4 class="text-info">@averageScore.ToString("F1")%</h4>
+                            <small class="text-muted">Average Score</small>
+                        </div>
+                        <div class="col-6">
+                            <h4 class="text-warning">@passRate.ToString("F1")%</h4>
+                            <small class="text-muted">Pass Rate</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h6 class="mb-0">Recent Activity</h6>
+                </div>
+                <div class="card-body">
+                    @foreach (var attempt in Model.OrderByDescending(a => a.StartedAt).Take(5))
+                    {
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <div>
+                                <strong>@attempt.Student?.FirstName @attempt.Student?.LastName</strong>
+                                <br>
+                                <small class="text-muted">@attempt.StartedAt.ToString("MMM dd, HH:mm")</small>
+                            </div>
+                            <div class="text-end">
+                                @if (attempt.IsCompleted)
+                                {
+                                    <span class="badge @(attempt.Percentage >= 80 ? "badge-success" : attempt.Percentage >= 60 ? "badge-warning" : "badge-danger")">
+                                        @attempt.Percentage?.ToString("F0")%
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="badge badge-warning">In Progress</span>
+                                }
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+} 

@@ -1,0 +1,62 @@
+@model IEnumerable<AcademIQ_LMS.Models.Quiz>
+
+@{
+    ViewData["Title"] = "Quizzes";
+    var userRole = Context.Session.GetString("UserRole");
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>Quizzes</h1>
+    @if (userRole == "Admin" || userRole == "Teacher")
+    {
+        <a asp-action="Create" class="btn btn-primary">Create Quiz</a>
+    }
+</div>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">
+        <h4 class="alert-heading">No quizzes found!</h4>
+        <p>No quizzes have been created yet.</p>
+    </div>
+}
+else
+{
+    <div class="row">
+        @foreach (var quiz in Model)
+        {
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">@quiz.Title</h5>
+                        <p class="card-text">@quiz.Description</p>
+                        <p class="card-text">
+                            <small class="text-muted">
+                                <strong>Course:</strong> @quiz.Course?.Title<br>
+                                <strong>Created by:</strong> @quiz.CreatedBy?.FirstName @quiz.CreatedBy?.LastName<br>
+                                <strong>Due Date:</strong> @(quiz.DueDate?.ToString("MMM dd, yyyy") ?? "No due date")<br>
+                                <strong>Time Limit:</strong> @(quiz.TimeLimitMinutes > 0 ? $"{quiz.TimeLimitMinutes} minutes" : "No time limit")
+                            </small>
+                        </p>
+                    </div>
+                    <div class="card-footer">
+                        <div class="d-flex justify-content-between">
+                            @if (userRole == "Student")
+                            {
+                                <a asp-action="Take" asp-route-id="@quiz.Id" class="btn btn-outline-primary btn-sm">Take Quiz</a>
+                            }
+                            else
+                            {
+                                <a asp-action="Attempts" asp-route-quizId="@quiz.Id" class="btn btn-outline-info btn-sm">View Attempts</a>
+                            }
+                            @if (userRole == "Admin" || quiz.CreatedById == int.Parse(Context.Session.GetString("UserId") ?? "0"))
+                            {
+                                <a asp-action="Edit" asp-route-id="@quiz.Id" class="btn btn-outline-secondary btn-sm">Edit</a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+} 

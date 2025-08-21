@@ -1,0 +1,147 @@
+@model AcademIQ_LMS.Models.Quiz
+
+@{
+    ViewData["Title"] = "Take Quiz";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h2>@Model.Title</h2>
+                <p class="text-muted mb-0">Course: @Model.Course?.Title</p>
+                @if (Model.DueDate.HasValue)
+                {
+                    <p class="text-muted mb-0">Due: @Model.DueDate.Value.ToString("MMM dd, yyyy HH:mm")</p>
+                }
+                @if (Model.TimeLimitMinutes > 0)
+                {
+                    <p class="text-muted mb-0">Time Limit: @Model.TimeLimitMinutes minutes</p>
+                }
+            </div>
+            <div class="card-body">
+                @if (!string.IsNullOrEmpty(Model.Description))
+                {
+                    <div class="alert alert-info">
+                        <h5>Instructions:</h5>
+                        <p>@Model.Description</p>
+                    </div>
+                }
+
+                <form asp-action="Submit" method="post" id="quizForm">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="quizId" value="@Model.Id" />
+                    
+                    @if (Model.Questions != null && Model.Questions.Any())
+                    {
+                        for (int i = 0; i < Model.Questions.Count; i++)
+                        {
+                            var question = Model.Questions.ElementAt(i);
+                            <div class="question-container mb-4 p-3 border rounded">
+                                <h5 class="mb-3">
+                                    Question @(i + 1): @question.QuestionText
+                                    @if (question.Points > 0)
+                                    {
+                                        <span class="badge bg-primary">@question.Points point(s)</span>
+                                    }
+                                </h5>
+
+                                @switch (question.Type)
+                                {
+                                    case QuestionType.MultipleChoice:
+                                        @if (question.Options != null && question.Options.Any())
+                                        {
+                                            foreach (var option in question.Options)
+                                            {
+                                                <div class="form-check mb-2">
+                                                    <input class="form-check-input" type="radio" 
+                                                           name="answers[@question.Id]" 
+                                                           value="@option.Id" 
+                                                           id="option_@option.Id" 
+                                                           required />
+                                                    <label class="form-check-label" for="option_@option.Id">
+                                                        @option.OptionText
+                                                    </label>
+                                                </div>
+                                            }
+                                        }
+                                        break;
+
+                                    case QuestionType.TrueFalse:
+                                        <div class="form-check mb-2">
+                                            <input class="form-check-input" type="radio" 
+                                                   name="answers[@question.Id]" 
+                                                   value="true" 
+                                                   id="true_@question.Id" 
+                                                   required />
+                                            <label class="form-check-label" for="true_@question.Id">
+                                                True
+                                            </label>
+                                        </div>
+                                        <div class="form-check mb-2">
+                                            <input class="form-check-input" type="radio" 
+                                                   name="answers[@question.Id]" 
+                                                   value="false" 
+                                                   id="false_@question.Id" 
+                                                   required />
+                                            <label class="form-check-label" for="false_@question.Id">
+                                                False
+                                            </label>
+                                        </div>
+                                        break;
+
+                                    case QuestionType.ShortAnswer:
+                                        <div class="mb-3">
+                                            <textarea class="form-control" 
+                                                      name="answers[@question.Id]" 
+                                                      rows="2" 
+                                                      placeholder="Enter your answer here..."
+                                                      required></textarea>
+                                        </div>
+                                        break;
+
+                                    case QuestionType.Essay:
+                                        <div class="mb-3">
+                                            <textarea class="form-control" 
+                                                      name="answers[@question.Id]" 
+                                                      rows="5" 
+                                                      placeholder="Enter your detailed answer here..."
+                                                      required></textarea>
+                                        </div>
+                                        break;
+                                }
+                            </div>
+                        }
+
+                        <div class="d-flex justify-content-between">
+                            <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+                            <button type="submit" class="btn btn-primary">Submit Quiz</button>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="alert alert-warning">
+                            <h5>No Questions Available</h5>
+                            <p>This quiz has no questions available at the moment.</p>
+                        </div>
+                        <a asp-action="Index" class="btn btn-secondary">Back to Quizzes</a>
+                    }
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $(document).ready(function() {
+            $('#quizForm').on('submit', function(e) {
+                if (!confirm('Are you sure you want to submit this quiz? You cannot change your answers after submission.')) {
+                    e.preventDefault();
+                    return false;
+                }
+            });
+        });
+    </script>
+}

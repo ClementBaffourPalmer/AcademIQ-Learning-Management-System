@@ -1,0 +1,175 @@
+﻿@{
+    ViewData["Title"] = "Home";
+    var isAuthenticated = Context.Session.GetString("UserId") != null;
+    var userRole = Context.Session.GetString("UserRole");
+    var userName = Context.Session.GetString("UserFullName");
+}
+
+<!-- Hero Section with Background Image -->
+<div class="hero-section mb-5" style="background-image: url('/images/Field_Trip.jpeg'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+    <div class="hero-overlay">
+        <div class="container">
+            <div class="row align-items-center min-vh-50">
+                <div class="col-lg-8">
+                    <h1 class="display-4 text-white fw-bold mb-4" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.8); color: #ffffff !important;">Welcome to AcademIQ LMS</h1>
+                    <p class="lead text-white mb-4" style="text-shadow: 1px 1px 3px rgba(0,0,0,0.8); color: #ffffff !important; font-weight: 500;">Your comprehensive Learning Management System designed for modern education</p>
+                    @if (!isAuthenticated)
+                    {
+                        <div class="hero-buttons">
+                            <a asp-controller="Account" asp-action="Login" class="btn btn-primary btn-lg me-3">Get Started</a>
+                            <a asp-controller="Account" asp-action="Register" class="btn btn-outline-light btn-lg">Learn More</a>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    @if (isAuthenticated)
+    {
+        <div class="alert alert-success text-center mb-4">
+            <h4>Welcome back, @userName!</h4>
+            <p>You are logged in as: <strong>@userRole</strong></p>
+        </div>
+
+        <div class="row mb-5">
+            <div class="col-md-4 mb-3">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Courses</h5>
+                        <p class="card-text">Manage and access your courses</p>
+                        <a asp-controller="Course" asp-action="Index" class="btn btn-primary">View Courses</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Content</h5>
+                        <p class="card-text">Upload and access educational materials</p>
+                        <a asp-controller="Content" asp-action="Index" class="btn btn-primary">View Content</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Quizzes</h5>
+                        <p class="card-text">Take and manage assessments</p>
+                        <a asp-controller="Quiz" asp-action="Index" class="btn btn-primary">View Quizzes</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @if (userRole == "Admin" || userRole == "Teacher")
+        {
+            <div class="card shadow-sm mb-5">
+                <div class="card-header">
+                    <h5>Quick Actions</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6 mb-2">
+                            <a asp-controller="Course" asp-action="Create" class="btn btn-success w-100">+ Create New Course</a>
+                        </div>
+                        <div class="col-md-6 mb-2">
+                            <a asp-controller="Content" asp-action="Create" class="btn btn-info w-100">Upload Content</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <div class="card shadow-sm mb-5">
+            <div class="card-body text-center">
+                <h5 class="card-title">Get Started</h5>
+                <p>Please log in or register to access the LMS features.</p>
+                <a asp-controller="Account" asp-action="Login" class="btn btn-primary me-2">Login</a>
+                <a asp-controller="Account" asp-action="Register" class="btn btn-outline-primary">Register</a>
+            </div>
+        </div>
+    }
+
+    <!-- Image Gallery Section -->
+    <div class="card shadow-sm mb-5">
+        <div class="card-header text-center">
+            <h4>Learning Experiences</h4>
+            <p class="text-muted mb-0">Discover the power of interactive learning</p>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="image-card">
+                        <img src="~/images/Field_Trip.jpeg" alt="Field Trip Learning Experience" class="img-fluid rounded shadow-sm mb-3" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="placeholder-image" style="display: none;">
+                            <i class="bi bi-mortarboard-fill text-primary fs-1"></i>
+                            <p class="text-muted mt-2">Field Trip Experience</p>
+                        </div>
+                        <h5 class="text-center">Field Trip Experience</h5>
+                        <p class="text-center text-muted">Hands-on learning through real-world experiences</p>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="image-card">
+                        <img src="~/images/Trip picture .jpeg" alt="Educational Trip" class="img-fluid rounded shadow-sm mb-3" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="placeholder-image" style="display: none;">
+                            <i class="bi bi-book text-info fs-1"></i>
+                            <p class="text-muted mt-2">Educational Journey</p>
+                        </div>
+                        <h5 class="text-center">Educational Journey</h5>
+                        <p class="text-center text-muted">Exploring knowledge through interactive trips</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-header text-center">
+            <h4>About AcademIQ LMS</h4>
+        </div>
+        <div class="card-body">
+            <div class="row text-center mb-4">
+                <div class="col-md-4">
+                    <i class="bi bi-mortarboard-fill text-primary fs-2"></i>
+                    <h5>Students</h5>
+                    <p class="small">Access materials, take quizzes, track progress</p>
+                </div>
+                <div class="col-md-4">
+                    <i class="bi bi-person-workspace text-info fs-2"></i>
+                    <h5>Teachers</h5>
+                    <p class="small">Create courses, upload content, grade students</p>
+                </div>
+                <div class="col-md-4">
+                    <i class="bi bi-shield-lock text-warning fs-2"></i>
+                    <h5>Admins</h5>
+                    <p class="small">Manage users, track activity, secure the system</p>
+                </div>
+            </div>
+
+            <div class="row text-center">
+                <div class="col-md-3">
+                    <i class="bi bi-lightning-charge-fill text-warning fs-3"></i>
+                    <p>Fast & Responsive</p>
+                </div>
+                <div class="col-md-3">
+                    <i class="bi bi-shield-lock-fill text-success fs-3"></i>
+                    <p>Secure & Reliable</p>
+                </div>
+                <div class="col-md-3">
+                    <i class="bi bi-people-fill text-info fs-3"></i>
+                    <p>User-Friendly</p>
+                </div>
+                <div class="col-md-3">
+                    <i class="bi bi-graph-up-arrow text-primary fs-3"></i>
+                    <p>Analytics & Insights</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

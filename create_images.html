@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Generate Placeholder Images</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .image-container { margin: 20px 0; }
+        canvas { border: 1px solid #ccc; margin: 10px; }
+        button { padding: 10px 20px; margin: 10px; background: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        button:hover { background: #0056b3; }
+    </style>
+</head>
+<body>
+    <h1>Generate Placeholder Images for AcademIQ LMS</h1>
+    
+    <div class="image-container">
+        <h3>Field Trip Image</h3>
+        <canvas id="fieldTripCanvas" width="800" height="600"></canvas>
+        <br>
+        <button onclick="downloadImage('fieldTripCanvas', 'Field_Trip.jpeg')">Download Field Trip Image</button>
+    </div>
+    
+    <div class="image-container">
+        <h3>Trip Picture Image</h3>
+        <canvas id="tripPictureCanvas" width="800" height="600"></canvas>
+        <br>
+        <button onclick="downloadImage('tripPictureCanvas', 'Trip_picture.jpeg')">Download Trip Picture Image</button>
+    </div>
+
+    <script>
+        function createPlaceholderImage(canvasId, title, subtitle, color1, color2) {
+            const canvas = document.getElementById(canvasId);
+            const ctx = canvas.getContext('2d');
+            
+            // Create gradient background
+            const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+            gradient.addColorStop(0, color1);
+            gradient.addColorStop(1, color2);
+            
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Add some geometric shapes for visual interest
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
+            ctx.beginPath();
+            ctx.arc(canvas.width * 0.8, canvas.height * 0.2, 100, 0, 2 * Math.PI);
+            ctx.fill();
+            
+            ctx.beginPath();
+            ctx.rect(canvas.width * 0.1, canvas.height * 0.7, 150, 100);
+            ctx.fill();
+            
+            // Add text
+            ctx.fillStyle = 'white';
+            ctx.font = 'bold 48px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText(title, canvas.width / 2, canvas.height / 2 - 30);
+            
+            ctx.font = '24px Arial';
+            ctx.fillText(subtitle, canvas.width / 2, canvas.height / 2 + 20);
+            
+            // Add a subtle border
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
+            ctx.lineWidth = 3;
+            ctx.strokeRect(10, 10, canvas.width - 20, canvas.height - 20);
+        }
+        
+        function downloadImage(canvasId, filename) {
+            const canvas = document.getElementById(canvasId);
+            const link = document.createElement('a');
+            link.download = filename;
+            link.href = canvas.toDataURL('image/jpeg', 0.8);
+            link.click();
+        }
+        
+        // Create the images when page loads
+        window.onload = function() {
+            createPlaceholderImage('fieldTripCanvas', 'Field Trip', 'Learning Experience', '#2c5aa0', '#4a90e2');
+            createPlaceholderImage('tripPictureCanvas', 'Educational Journey', 'Knowledge Discovery', '#27ae60', '#2ecc71');
+        };
+    </script>
+</body>
+</html> 
