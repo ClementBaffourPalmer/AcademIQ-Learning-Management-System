@@ -17,97 +17,49 @@ build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = AcademIQ_LMS
 build_property.RootNamespace = AcademIQ_LMS
-build_property.ProjectDir = /Users/kavanalabsuser/Developments/Learning Management System/AcademIQ_LMS/
+build_property.ProjectDir = /Users/kavanalabsuser/Desktop/test/AcademIQ-Learning-Management-System/
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 9.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = /Users/kavanalabsuser/Developments/Learning Management System/AcademIQ_LMS
+build_property.MSBuildProjectDirectory = /Users/kavanalabsuser/Desktop/test/AcademIQ-Learning-Management-System
 build_property._RazorSourceGeneratorDebug = 
 build_property.EffectiveAnalysisLevelStyle = 9.0
 build_property.EnableCodeStyleSeverity = 
 
-[/Users/kavanalabsuser/Developments/Learning Management System/AcademIQ_LMS/Views/Account/Login.cshtml]
+[/Users/kavanalabsuser/Desktop/test/AcademIQ-Learning-Management-System/Views/Account/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWNjb3VudC9Mb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/kavanalabsuser/Developments/Learning Management System/AcademIQ_LMS/Views/Account/Register.cshtml]
+[/Users/kavanalabsuser/Desktop/test/AcademIQ-Learning-Management-System/Views/Account/Register.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWNjb3VudC9SZWdpc3Rlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/kavanalabsuser/Developments/Learning Management System/AcademIQ_LMS/Views/Content/Create.cshtml]
+[/Users/kavanalabsuser/Desktop/test/AcademIQ-Learning-Management-System/Views/Content/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ29udGVudC9DcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/kavanalabsuser/Developments/Learning Management System/AcademIQ_LMS/Views/Content/Index.cshtml]
+[/Users/kavanalabsuser/Desktop/test/AcademIQ-Learning-Management-System/Views/Content/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ29udGVudC9JbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/kavanalabsuser/Developments/Learning Management System/AcademIQ_LMS/Views/Course/AvailableCourses.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ291cnNlL0F2YWlsYWJsZUNvdXJzZXMuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[/Users/kavanalabsuser/Developments/Learning Management System/AcademIQ_LMS/Views/Course/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ291cnNlL0NyZWF0ZS5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[/Users/kavanalabsuser/Developments/Learning Management System/AcademIQ_LMS/Views/Course/Details.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ291cnNlL0RldGFpbHMuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[/Users/kavanalabsuser/Developments/Learning Management System/AcademIQ_LMS/Views/Course/Edit.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ291cnNlL0VkaXQuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[/Users/kavanalabsuser/Developments/Learning Management System/AcademIQ_LMS/Views/Course/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ291cnNlL0luZGV4LmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[/Users/kavanalabsuser/Developments/Learning Management System/AcademIQ_LMS/Views/Home/Index.cshtml]
+[/Users/kavanalabsuser/Desktop/test/AcademIQ-Learning-Management-System/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9JbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/kavanalabsuser/Developments/Learning Management System/AcademIQ_LMS/Views/Home/Privacy.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9Qcml2YWN5LmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[/Users/kavanalabsuser/Developments/Learning Management System/AcademIQ_LMS/Views/Quiz/Attempts.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUXVpei9BdHRlbXB0cy5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[/Users/kavanalabsuser/Developments/Learning Management System/AcademIQ_LMS/Views/Quiz/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUXVpei9DcmVhdGUuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[/Users/kavanalabsuser/Developments/Learning Management System/AcademIQ_LMS/Views/Quiz/Edit.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUXVpei9FZGl0LmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[/Users/kavanalabsuser/Developments/Learning Management System/AcademIQ_LMS/Views/Quiz/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUXVpei9JbmRleC5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[/Users/kavanalabsuser/Developments/Learning Management System/AcademIQ_LMS/Views/Quiz/Take.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUXVpei9UYWtlLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[/Users/kavanalabsuser/Developments/Learning Management System/AcademIQ_LMS/Views/Shared/Error.cshtml]
+[/Users/kavanalabsuser/Desktop/test/AcademIQ-Learning-Management-System/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL0Vycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/kavanalabsuser/Developments/Learning Management System/AcademIQ_LMS/Views/Shared/_ValidationScriptsPartial.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+[/Users/kavanalabsuser/Desktop/test/AcademIQ-Learning-Management-System/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/kavanalabsuser/Developments/Learning Management System/AcademIQ_LMS/Views/_ViewImports.cshtml]
+[/Users/kavanalabsuser/Desktop/test/AcademIQ-Learning-Management-System/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/kavanalabsuser/Developments/Learning Management System/AcademIQ_LMS/Views/_ViewStart.cshtml]
+[/Users/kavanalabsuser/Desktop/test/AcademIQ-Learning-Management-System/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
-
-[/Users/kavanalabsuser/Developments/Learning Management System/AcademIQ_LMS/Views/Shared/_Layout.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19MYXlvdXQuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = b-yo6n186c93

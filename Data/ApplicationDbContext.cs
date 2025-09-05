@@ -1,12 +1,12 @@
-using Microsoft.EntityFrameworkCore;
+using System.Data.Entity;
 using AcademIQ_LMS.Models;
 
 namespace AcademIQ_LMS.Data
 {
     public class ApplicationDbContext : DbContext
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-            : base(options)
+        public ApplicationDbContext()
+            : base("DefaultConnection")
         {
         }
 
@@ -20,121 +20,78 @@ namespace AcademIQ_LMS.Data
         public DbSet<QuizAttempt> QuizAttempts { get; set; }
         public DbSet<QuizAnswer> QuizAnswers { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
             // Configure User entity
-            modelBuilder.Entity<User>(entity =>
-            {
-                entity.HasIndex(e => e.Email).IsUnique();
-                entity.HasIndex(e => e.Username).IsUnique();
-            });
+            modelBuilder.Entity<User>()
+                .Property(e => e.Username)
+                .IsRequired()
+                .HasMaxLength(50);
+
+            modelBuilder.Entity<User>()
+                .Property(e => e.Email)
+                .IsRequired()
+                .HasMaxLength(100);
+
+            modelBuilder.Entity<User>()
+                .Property(e => e.FirstName)
+                .IsRequired()
+                .HasMaxLength(50);
+
+            modelBuilder.Entity<User>()
+                .Property(e => e.LastName)
+                .IsRequired()
+                .HasMaxLength(50);
 
             // Configure Course entity
-            modelBuilder.Entity<Course>(entity =>
-            {
-                entity.HasOne(c => c.Teacher)
-                    .WithMany(u => u.Courses)
-                    .HasForeignKey(c => c.TeacherId)
-                    .OnDelete(DeleteBehavior.Restrict);
-            });
+            modelBuilder.Entity<Course>()
+                .Property(e => e.Title)
+                .IsRequired()
+                .HasMaxLength(100);
 
-            // Configure Enrollment entity
-            modelBuilder.Entity<Enrollment>(entity =>
-            {
-                entity.HasOne(e => e.Student)
-                    .WithMany(u => u.Enrollments)
-                    .HasForeignKey(e => e.StudentId)
-                    .OnDelete(DeleteBehavior.Cascade);
-
-                entity.HasOne(e => e.Course)
-                    .WithMany(c => c.Enrollments)
-                    .HasForeignKey(e => e.CourseId)
-                    .OnDelete(DeleteBehavior.Cascade);
-
-                // Ensure unique enrollment per student per course
-                entity.HasIndex(e => new { e.StudentId, e.CourseId }).IsUnique();
-            });
+            modelBuilder.Entity<Course>()
+                .Property(e => e.Description)
+                .IsRequired();
 
             // Configure Content entity
-            modelBuilder.Entity<Content>(entity =>
-            {
-                entity.HasOne(c => c.Course)
-                    .WithMany(c => c.Contents)
-                    .HasForeignKey(c => c.CourseId)
-                    .OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Content>()
+                .Property(e => e.Title)
+                .IsRequired()
+                .HasMaxLength(100);
 
-                entity.HasOne(c => c.UploadedBy)
-                    .WithMany()
-                    .HasForeignKey(c => c.UploadedById)
-                    .OnDelete(DeleteBehavior.Restrict);
-            });
+            modelBuilder.Entity<Content>()
+                .Property(e => e.Description)
+                .IsRequired();
+
+            modelBuilder.Entity<Content>()
+                .Property(e => e.FileName)
+                .IsRequired();
+
+            modelBuilder.Entity<Content>()
+                .Property(e => e.FilePath)
+                .IsRequired();
 
             // Configure Quiz entity
-            modelBuilder.Entity<Quiz>(entity =>
-            {
-                entity.HasOne(q => q.Course)
-                    .WithMany(c => c.Quizzes)
-                    .HasForeignKey(q => q.CourseId)
-                    .OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Quiz>()
+                .Property(e => e.Title)
+                .IsRequired()
+                .HasMaxLength(100);
 
-                entity.HasOne(q => q.CreatedBy)
-                    .WithMany(u => u.CreatedQuizzes)
-                    .HasForeignKey(q => q.CreatedById)
-                    .OnDelete(DeleteBehavior.Restrict);
-            });
+            modelBuilder.Entity<Quiz>()
+                .Property(e => e.Description)
+                .IsRequired();
 
             // Configure QuizQuestion entity
-            modelBuilder.Entity<QuizQuestion>(entity =>
-            {
-                entity.HasOne(q => q.Quiz)
-                    .WithMany(q => q.Questions)
-                    .HasForeignKey(q => q.QuizId)
-                    .OnDelete(DeleteBehavior.Cascade);
-            });
-
-            // Configure QuizOption entity
-            modelBuilder.Entity<QuizOption>(entity =>
-            {
-                entity.HasOne(o => o.Question)
-                    .WithMany(q => q.Options)
-                    .HasForeignKey(o => o.QuestionId)
-                    .OnDelete(DeleteBehavior.Cascade);
-            });
-
-            // Configure QuizAttempt entity
-            modelBuilder.Entity<QuizAttempt>(entity =>
-            {
-                entity.HasOne(a => a.Student)
-                    .WithMany(u => u.QuizAttempts)
-                    .HasForeignKey(a => a.StudentId)
-                    .OnDelete(DeleteBehavior.Cascade);
-
-                entity.HasOne(a => a.Quiz)
-                    .WithMany(q => q.Attempts)
-                    .HasForeignKey(a => a.QuizId)
-                    .OnDelete(DeleteBehavior.Cascade);
-            });
+            modelBuilder.Entity<QuizQuestion>()
+                .Property(e => e.QuestionText)
+                .IsRequired();
 
             // Configure QuizAnswer entity
-            modelBuilder.Entity<QuizAnswer>(entity =>
-            {
-                entity.HasOne(a => a.Attempt)
-                    .WithMany(att => att.Answers)
-                    .HasForeignKey(a => a.AttemptId)
-                    .OnDelete(DeleteBehavior.Cascade);
-
-                entity.HasOne(a => a.Question)
-                    .WithMany(q => q.Answers)
-                    .HasForeignKey(a => a.QuestionId)
-                    .OnDelete(DeleteBehavior.Cascade);
-
-                entity.HasOne(a => a.SelectedOption)
-                    .WithMany()
-                    .HasForeignKey(a => a.SelectedOptionId)
-                    .OnDelete(DeleteBehavior.SetNull);
-            });
+            modelBuilder.Entity<QuizAnswer>()
+                .Property(e => e.AnswerText)
+                .IsRequired();
         }
     }
 } 

@@ -1,0 +1,8 @@
+/Users/kavanalabsuser/Desktop/test/AcademIQ-Learning-Management-System/obj/Debug/net48/AcademIQ_LMS.csproj.AssemblyReference.cache
+/Users/kavanalabsuser/Desktop/test/AcademIQ-Learning-Management-System/obj/Debug/net48/AcademIQ_LMS.csproj.SuggestedBindingRedirects.cache
+/Users/kavanalabsuser/Desktop/test/AcademIQ-Learning-Management-System/obj/Debug/net48/AcademIQ_LMS.exe.config
+/Users/kavanalabsuser/Desktop/test/AcademIQ-Learning-Management-System/obj/Debug/net48/AcademIQ_LMS.GeneratedMSBuildEditorConfig.editorconfig
+/Users/kavanalabsuser/Desktop/test/AcademIQ-Learning-Management-System/obj/Debug/net48/AcademIQ_LMS.AssemblyInfoInputs.cache
+/Users/kavanalabsuser/Desktop/test/AcademIQ-Learning-Management-System/obj/Debug/net48/AcademIQ_LMS.AssemblyInfo.cs
+/Users/kavanalabsuser/Desktop/test/AcademIQ-Learning-Management-System/obj/Debug/net48/AcademIQ_LMS.csproj.CoreCompileInputs.cache
+/Users/kavanalabsuser/Desktop/test/AcademIQ-Learning-Management-System/obj/Debug/net48/AcademIQ_LMS.sourcelink.json
